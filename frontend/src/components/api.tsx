@@ -1,41 +1,37 @@
-import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
-} from '@tanstack/react-query'
+export async function AllTasks() {
+  const response = await fetch('http://localhost:8080/tasks')
 
-export function AllTodos() {
+  if (!response.ok) {
+    throw new Error('Chyba na backednu')
+  }
 
+  return response.json()
 }
 
 export async function CreateTask(text: string) {
-    // const mutation = useMutation({
-    //     mutationFn: (text) => {
-    //       console.log(text)
-    //       const requestOptions = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ text: text })
-    //     }
-    //       return fetch('http://localhost:8080/tasks', requestOptions)
-    //     }
-    //   })
+  const response = await fetch('http://localhost:8080/tasks', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ text: text })
+  })
 
-    //   return (
-    //     mutation.mutate
-    //   ) 
-    const response = await fetch('http://localhost:8080/tasks', {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ text: text })
-    })
+  if (!response.ok) {
+    throw new Error('Chyba backendu')
+  }
 
-    const result = await response.json()
-    return result
+  return response.json()
 }
 
 export async function UpdateTask(id: number, text: string) {
+  const response = await fetch(`http://localhost:8080/tasks/${id}`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ text: text })
+  })
 
+  if (!response.ok) {
+    throw new Error('Chyba backendu')
+  }
+
+  return response.json()
 }

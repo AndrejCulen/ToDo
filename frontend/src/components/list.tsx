@@ -1,4 +1,4 @@
-import React from 'react'
+import TextInput from './textInput'
 
 interface List {
     items: [
@@ -14,7 +14,9 @@ export default function List(list: List) {
     return (
         <ul>
             {list.items?.map((item) => (
-                <li>{item.text}</li>
+                <li key={item.id}>
+                    <TextInput text={item.text} />
+                </li>
             ))}
         </ul>
     )
