@@ -22,11 +22,55 @@ export async function CreateTask(text: string) {
   return response.json()
 }
 
-export async function UpdateTask(id: number, text: string) {
+interface Update {
+  id: string
+  text: string
+}
+
+export async function UpdateTask({id, text}: Update) {
   const response = await fetch(`http://localhost:8080/tasks/${id}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({ text: text })
+  })
+
+  if (!response.ok) {
+    throw new Error('Chyba backendu')
+  }
+
+  return response.json()
+}
+
+export async function DeleteTask(id: string) {
+  const response = await fetch(`http://localhost:8080/tasks/${id}`, {
+    method: 'DELETE',
+    headers: {'Content-Type': 'application/json'}
+  })
+  console.log(response)
+  if (!response.ok) {
+    throw new Error('Chyba backendu')
+  }
+
+  return response.json()
+}
+
+export async function CompleteTask(id: string) {
+  const response = await fetch(`http://localhost:8080/tasks/${id}/complete`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'}
+  })
+
+  if (!response.ok) {
+    throw new Error('Chyba backendu')
+  }
+
+  return response.json()
+}
+
+export async function IncompleteTask(id: string) {
+  const response = await fetch(`http://localhost:8080/tasks/${id}/incomplete`, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'}
   })
 
   if (!response.ok) {
