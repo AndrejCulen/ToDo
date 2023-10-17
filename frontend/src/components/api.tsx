@@ -46,7 +46,7 @@ export async function DeleteTask(id: string) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   })
-  console.log(response)
+  console.log(response.json())
   if (!response.ok) {
     throw new Error('Chyba backendu')
   }

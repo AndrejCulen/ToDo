@@ -1,7 +1,12 @@
-export default function Counter({count, text}) {
+interface Counter {
+    count: number
+    text: string
+}
+
+export default function Counter({count, text}: Counter) {
     return (
         <div>
-            {count} {text}
+            {text} {count}
         </div>
     )
 }
