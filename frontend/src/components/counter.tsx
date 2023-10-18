@@ -5,8 +5,15 @@ interface Counter {
 
 export default function Counter({count, text}: Counter) {
     return (
-        <div>
-            {text} {count}
-        </div>
+        <>
+            {count ?
+                <div>
+                    {text} {count}
+                </div>
+                :
+                <></>
+            }
+            
+        </>
     )
 }

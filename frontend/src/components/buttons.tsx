@@ -1,24 +1,26 @@
 import styled from 'styled-components'
 
 interface Button {
-    text: string
-    active: boolean
+    text: string,
+    active: string,
+    id: string,
     onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-export function PrimaryButton({text, active, onClick}: Button) {
+export function PrimaryButton({text, id, active, onClick}: Button) {
     return (
         <SimpleButton
             onClick={onClick}
-            active={active}
+            $active={active}
+            $id={id}
         >
             {text}
         </SimpleButton>
     )
 }
 
-const SimpleButton = styled.div<{active?: boolean}>`
-    border-bottom: 3px solid ${props => props.active ? '#03bda6' :  'transparent'};
+const SimpleButton = styled.div<{$active?: string, $id?: string}>`
+    border-bottom: 3px solid ${props => props.$id === props.$active ? '#03bda6' :  'transparent'};
     
     &:hover {
         border-bottom: 3px solid #03bda6;

@@ -1,66 +1,69 @@
-import TextInput from './textInput'
-import { useState } from 'react'
-import styled from 'styled-components'
-import Counter from './counter'
-import { DeleteTask, CompleteTask, IncompleteTask } from './api'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import Checkbox from './checkbox'
+import styled from 'styled-components'
+import { DeleteTask, CompleteTask } from './api'
 import { DeleteButton, FooterButton } from './buttons'
+import TextInput from './textInput'
+import Counter from './counter'
+import Checkbox from './checkbox'
 
-interface List {
-    items: [
-        item: {
-            id: string,
-            text: string,
-            completed: boolean
-        }
-    ]
+interface Item {
+    id: string,
+    text: string,
+    completed: boolean
+    createdDate: number,
+    completedDate?: number
 }
 
-export default function List(list: List) {
-    console.log(list)
-    const [checked, setChecked] = useState()
+interface List {
+    list: Item[]
+}
+
+export default function List({list}: List) {
 
     const queryClient = useQueryClient()
 
     const deleteMutation = useMutation({
         mutationFn: DeleteTask,
-        onSuccess: data => {
-            queryClient.setQueryData(['todos'],
-                (prevData: List[] | undefined) => {
-                    console.log(data)
-                    return prevData?.filter(task => task.id !== data.id)
-                }
-            )
+        onSuccess: () => {
+            queryClient.invalidateQueries(['todos'])
+            // Api nevrací task při DELETE, tak je nutono invalidovat queries a počkat na nový fetch
         }
     })
     
     const completeMutation = useMutation({
         mutationFn: CompleteTask,
         onSuccess: data => {
-          queryClient.setQueryData(['todos'],
-            (prevData) => {
-              const i = prevData.findIndex(x => x.id === data.id )
-              prevData[i] = data
-              return prevData
-            }
+            queryClient.setQueryData(['todos'],
+                (prevData: Item[] | undefined) => {
+                    return prevData?.map((item) => {
+                        if (item.id !== data.id) {
+                            return item
+                        }
+
+                        return {
+                            ...item,
+                            completed: data.completed,
+                            completedDate: data.completedDate
+                        }
+                    })
+                }
           )
         }
     })
 
-    function deleteTask(id: string) {
+    function deleteTask (id: string) {
         deleteMutation.mutate(id)
     }
 
     function deleteAllCompleted() {
-        const itemsToDelete = list.items.filter(item => item.completed)
+        const itemsToDelete = list.filter(item => item.completed)
         itemsToDelete.map(item => {
             deleteMutation.mutate(item.id)
         })
     }
 
     function setAllDone() {
-        const undone = list.items.filter(task => !task.completed)
+        const undone = list.filter(task => !task.completed)
         undone.map(task => {
           completeMutation.mutate(task.id)
         })
@@ -69,7 +72,7 @@ export default function List(list: List) {
     return (
         <ListSection>
             <StyledList>
-                {list.items?.map((item) => (
+                {list?.map((item) => (
                     <ListItem key={item.id}>
                         <InputPart>
                             <Checkbox
@@ -84,17 +87,17 @@ export default function List(list: List) {
                     </ListItem>
                 ))}
                 <Counter
-                    count={list.items?.filter(task => task.completed).length}
-                    text="Počet hotových úkolů:"
+                    count={list?.filter(task => task.completed).length}
+                    text="Počet splněných úkolů:"
                 />
             </StyledList>
             <StyledFooter>
                 <FooterButton
-                    text="Vše hotovo" 
+                    text="Vše" 
                     onClick={() => setAllDone()}
                 />
                 <FooterButton
-                    text="Odstranit vše hotové" 
+                    text="Odstranit vše splněné" 
                     onClick={() => deleteAllCompleted()}
                 />
             </StyledFooter>
@@ -103,11 +106,11 @@ export default function List(list: List) {
     )
 }
 
-const InputPart = styled.div`
+const ListSection = styled.section`
     display: flex;
+    flex-flow: column;
     align-items: center;
 `
-
 const StyledList = styled.ul`
     box-sizing: border-box;
     background: #e6e6e6;
@@ -117,11 +120,11 @@ const StyledList = styled.ul`
     border-radius: 10px;
 `
 
-const ListSection = styled.section`
+const InputPart = styled.div`
     display: flex;
-    flex-flow: column;
     align-items: center;
 `
+
 const ListItem = styled.li`
     display: flex;
     align-items: center;

@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect} from 'react'
-import styled from 'styled-components'
 import {useMutation} from '@tanstack/react-query'
+import styled from 'styled-components'
 import {UpdateTask} from './api'
 
 interface Input {

@@ -2,7 +2,7 @@ export async function AllTasks() {
   const response = await fetch('http://localhost:8080/tasks')
 
   if (!response.ok) {
-    throw new Error('Chyba na backednu')
+    throw new Error('Chyba při načítání úkolů')
   }
 
   return response.json()
@@ -16,7 +16,7 @@ export async function CreateTask(text: string) {
   })
 
   if (!response.ok) {
-    throw new Error('Chyba backendu')
+    throw new Error('Nastala chyba při vytváření úkolu')
   }
 
   return response.json()
@@ -35,7 +35,7 @@ export async function UpdateTask({id, text}: Update) {
   })
 
   if (!response.ok) {
-    throw new Error('Chyba backendu')
+    throw new Error('Chyba při změně úkolu')
   }
 
   return response.json()
@@ -46,12 +46,12 @@ export async function DeleteTask(id: string) {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
   })
-  console.log(response.json())
+
   if (!response.ok) {
-    throw new Error('Chyba backendu')
+    throw new Error('Chyba při odstranění úkolu')
   }
 
-  return response.json()
+  // Api nevrací task při DELETE, response v sobě nic nemá, není co vracet
 }
 
 export async function CompleteTask(id: string) {
@@ -61,7 +61,7 @@ export async function CompleteTask(id: string) {
   })
 
   if (!response.ok) {
-    throw new Error('Chyba backendu')
+    throw new Error('Chyba při dokončení úkolu')
   }
 
   return response.json()
@@ -74,7 +74,7 @@ export async function IncompleteTask(id: string) {
   })
 
   if (!response.ok) {
-    throw new Error('Chyba backendu')
+    throw new Error('Chyba při obnově úkolu')
   }
 
   return response.json()
