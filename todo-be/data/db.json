@@ -3,9 +3,8 @@
     {
       "id": "V1StGXR8_Z5jdHi6B-myT",
       "text": "Udělat API",
-      "completed": true,
-      "createdDate": 1501594393387,
-      "completedDate": 1643205131975
+      "completed": false,
+      "createdDate": 1501594393387
     },
     {
       "id": "ADSFaEKG_Z2IISFNse-mMM",
@@ -18,6 +17,25 @@
       "text": "Vytvořit prezantaci",
       "completed": false,
       "createdDate": 1501594393387
+    },
+    {
+      "id": "F1Yxdo_nKFtRi0dTa-_c7",
+      "text": "fwfw",
+      "completed": false,
+      "createdDate": 1699561026291
+    },
+    {
+      "id": "Su_NHgEuq9isqhor_bn9n",
+      "text": "addwad",
+      "completed": false,
+      "createdDate": 1699564153412
+    },
+    {
+      "id": "UfBpAvo7tf1vLOVitb01j",
+      "text": "dwdffdsfwf",
+      "completed": true,
+      "createdDate": 1699564209004,
+      "completedDate": 1699572678553
     }
   ]
 }

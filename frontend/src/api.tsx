@@ -1,4 +1,4 @@
-export async function AllTasks() {
+export async function allTasks() {
   const response = await fetch('http://localhost:8080/tasks')
 
   if (!response.ok) {
@@ -8,7 +8,7 @@ export async function AllTasks() {
   return response.json()
 }
 
-export async function CreateTask(text: string) {
+export async function createTask(text: string) {
   const response = await fetch('http://localhost:8080/tasks', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -27,7 +27,7 @@ interface Update {
   text: string
 }
 
-export async function UpdateTask({id, text}: Update) {
+export async function updateTask({id, text}: Update) {
   const response = await fetch(`http://localhost:8080/tasks/${id}`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -41,7 +41,7 @@ export async function UpdateTask({id, text}: Update) {
   return response.json()
 }
 
-export async function DeleteTask(id: string) {
+export async function deleteTask(id: string) {
   const response = await fetch(`http://localhost:8080/tasks/${id}`, {
     method: 'DELETE',
     headers: {'Content-Type': 'application/json'}
@@ -54,7 +54,7 @@ export async function DeleteTask(id: string) {
   // Api nevrací task při DELETE, response v sobě nic nemá, není co vracet
 }
 
-export async function CompleteTask(id: string) {
+export async function completeTask(id: string) {
   const response = await fetch(`http://localhost:8080/tasks/${id}/complete`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}
@@ -67,7 +67,7 @@ export async function CompleteTask(id: string) {
   return response.json()
 }
 
-export async function IncompleteTask(id: string) {
+export async function incompleteTask(id: string) {
   const response = await fetch(`http://localhost:8080/tasks/${id}/incomplete`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'}
