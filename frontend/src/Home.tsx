@@ -1,13 +1,13 @@
 import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import { useSelector } from 'react-redux'
+import type { RootState } from './app/store'
 import { allTasks } from './api'
 import TodoList from './components/todoList'
 import Header from './components/header'
 import AddTodo from './components/addTodo'
 import Footer from './components/footer'
 import FilteringTodos from './components/filteringTodos'
-import type { RootState } from './app/store'
 
 export default function Home() {
     
@@ -46,6 +46,7 @@ const Main = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 600px;
+  padding: 0px 12px;
   margin: 0 auto;
   border-radius: 10px;
 `
@@ -57,8 +58,9 @@ const StyledSection = styled.section`
   border: 1px solid ${prosps => prosps.theme.borderBackground};
   border-top: 0;
   border-radius: 0 0 10px 10px;
+
   @media (max-width: 600px) {
-    padding: 12px 8px 10px 8px;
+    padding: 12px 12px 10px 12px;
   }
 `
 

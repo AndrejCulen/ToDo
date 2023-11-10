@@ -9,7 +9,7 @@ interface Input {
     onSubmit: (event: React.FocusEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>, id: string, value: string) => void
 }
 
-export default function TextInput({text, id, checked, onSubmit, editing}: Input) {
+export default function TextInputForm({text, id, checked, onSubmit, editing}: Input) {
     const inputRef = useRef<HTMLInputElement>(null)
 
     const [value, setValue] = useState<string>(text)
@@ -19,7 +19,7 @@ export default function TextInput({text, id, checked, onSubmit, editing}: Input)
     }, [editing])
 
     return (
-        <form onSubmit={(e) => onSubmit(e, id, value)}>
+        <StyledForm onSubmit={(e) => onSubmit(e, id, value)}>
             {editing ?
                 <TexField 
                     ref={inputRef}
@@ -30,9 +30,13 @@ export default function TextInput({text, id, checked, onSubmit, editing}: Input)
                 /> :
                 <TextPlaceholder checked={checked}>{value}</TextPlaceholder>
             }
-        </form>
+        </StyledForm>
     )
 }
+
+const StyledForm = styled.form`
+    display: flex;
+`
 
 const TexField = styled.input`
     -webkit-appearance: none;

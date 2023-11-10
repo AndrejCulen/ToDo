@@ -21,10 +21,10 @@ export function PrimaryButton({text, id, active, onClick}: Button) {
 }
 
 const SimpleButton = styled.div<{$active?: string, $id?: string}>`
-    border-bottom: 3px solid ${props => props.$id === props.$active ? '#03bda6' :  'transparent'};
+    border-bottom: 3px solid ${props => props.$id === props.$active ? props.theme.activeButton :  'transparent'};
     
     &:hover {
-        border-bottom: 3px solid #03bda6;
+        border-bottom: 3px solid ${props => props.theme.activeButton};
         cursor: pointer;
     }
 `
@@ -70,12 +70,19 @@ export function FooterButton({text, onClick}: FooterButton) {
 
 const StyledFooterButton = styled.div`
     padding: 8px 12px;
-    border: 1px solid #e6e6e6;
+    border: 1px solid ${props => props.theme.borderBackground};
     border-radius: 10px;
 
     &:hover {
-        color: black;
-        border: 1px solid black;
+        color: ${props => props.theme.reverseTextColor && props.theme.reverseTextColor};
+        border: 1px solid ${props => props.theme.reverseTextColor};
+        background: ${props => props.theme.reverseTextColor ? props.theme.borderBackground : 'transparent'};
         cursor: pointer;
+    }
+
+    @media(max-width: 340px) {
+        &:first-child {
+            margin-bottom: 12px;
+        }
     }
 `

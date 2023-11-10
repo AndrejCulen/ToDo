@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-    useQuery,
     useMutation,
     useQueryClient
 } from '@tanstack/react-query'
@@ -45,9 +44,9 @@ export default function AddTodo() {
                 placeholder='Zadejte úkol'
             />
             <SubmitButton type="submit">
-                <AddIcon
-                    width={15}
-                    height={15}
+                <StyledAddICon
+                    width={20}
+                    height={20}
                 />
             </SubmitButton>
         </StyledForm>
@@ -56,14 +55,19 @@ export default function AddTodo() {
 
 const StyledForm = styled.form`
   position: relative;
+  max-width: 100%;
 `
 
 const StyledInput = styled.input`
+  box-sizing: border-box;
+  max-width: 100%;
   padding: 12px 20px;
   border: 1px solid ${props => props.theme.borderBackground};
   border-radius: 15px;
   font-size: 24px;
   line-height: 24px;
+  background: ${props => props.theme.lightBackground ? props.theme.lightBackground : 'none'};
+  color: ${props => props.theme.textColor};
   
   :focus {
     border: 1px solid ${props => props.theme.focusInput};
@@ -71,18 +75,25 @@ const StyledInput = styled.input`
 `
 
 const SubmitButton = styled.button`
+  box-sizing: content-box;
   position: absolute;
   top: 50%;
   right: 15px;
   transform: translate(0, -50%);
   background: transparent;
   border: 1px solid ${props => props.theme.borderBackground};
-  box-sizing: content-box;
   width: 20px;
   height: 20px;
   padding: 4px;
   cursor: pointer;
+
   &:hover {
-    border: 1px solid black;
+    transform: scale(1.03) translate(0, -50%);
+    transition: transform .15s;
+    border: 1px solid ${props => props.theme.textColor};
   }
+`
+
+const StyledAddICon = styled(AddIcon)`
+  fill: ${props => props.theme.textColor};
 `

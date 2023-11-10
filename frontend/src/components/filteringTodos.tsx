@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { useDispatch, useSelector } from 'react-redux'
-import { changeData, removeData } from '../app/reducer'
-import { PrimaryButton } from './buttons'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { filterData, removeData } from '../app/reducer'
+import styled from 'styled-components'
+import { PrimaryButton } from './buttons'
 
 interface Item {
     id: string,
@@ -28,14 +28,14 @@ export default function FilteringTodos({data}: any) {
       function showCompletedTasks(id: string) {
         setActiveTab(id)
         dispatch(
-          changeData([...data.filter((task: Item) => task.completed)])
+          filterData([...data.filter((task: Item) => task.completed)])
         )
       }
   
       function showIncompletedTasks(id: string) {
         setActiveTab(id)
         dispatch(
-          changeData([...data.filter((task: Item) => !task.completed)])
+          filterData([...data.filter((task: Item) => !task.completed)])
         )
       }
 

@@ -6,7 +6,7 @@ export const selectedData = createSlice({
     selectedData: null,
   },
   reducers: {
-    changeData: (state, action) => {
+    filterData: (state, action) => {
       state.selectedData = action.payload
     },
     removeData: (state) => {
@@ -15,6 +15,6 @@ export const selectedData = createSlice({
   }
 })
 
-export const { changeData, removeData } = selectedData.actions
+export const { filterData, removeData } = selectedData.actions
 
 export default selectedData.reducer

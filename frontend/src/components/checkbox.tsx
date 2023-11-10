@@ -7,18 +7,11 @@ interface Checkbox {
     onClick: (id: string, checked: boolean) => void
 }
 
-interface Item {
-    id: string,
-    text: string,
-    completed: boolean,
-    createdDate: number,
-    completedDate: number
-}
-
-
 export default function Checkbox({checked, id, onClick}: Checkbox) {
     return (
-        <div onClick={() => onClick(id, checked)}>
+        <div 
+            onClick={() => onClick(id, checked)}
+        >
             <label>
                 <Input
                     type='checkbox'

@@ -22,6 +22,7 @@ const StyledHeader = styled.header`
   border-bottom: 0;
   padding: 24px 32px;
   border-radius: 10px 10px 0 0;
+  color: black;
   background: ${props => props.theme.headerBackground};
 `
 

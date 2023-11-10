@@ -31,7 +31,7 @@ export default function Footer({list}: List) {
 
             return { previousTodos }
         },
-        onError: (err, context: any) => {
+        onError: (context: any) => {
             queryClient.setQueryData(['todos'],  (old: any) => old.filter((todo: Item) => todo.id !== context?.previousTodos.id))
         },
         onSettled: () => {
@@ -93,10 +93,16 @@ const StyledFooter = styled.footer`
     display: flex;
     flex-flow: column;
     align-items: center;
+    margin-bottom: 16px;
 `
 const StyledFooterInner = styled.div`
     width: 100%;
     max-width: 400px;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media(max-width: 340px) {
+        justify-content: center;
+    }
 `

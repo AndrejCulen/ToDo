@@ -16,6 +16,8 @@ export const GlobalStyle = createGlobalStyle`
         min-width: 320px;
         min-height: 100vh;
         width: 100%;
+        color: ${props => props.theme.textColor};
+        background: ${props => props.theme.backgroundColor && props.theme.backgroundColor};
     }
 
     button {

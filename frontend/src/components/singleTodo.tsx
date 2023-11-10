@@ -1,14 +1,10 @@
-import styled from 'styled-components'
+import { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import styled from 'styled-components'
 import { deleteTask, completeTask, incompleteTask, updateTask } from '../api'
 import { DeleteButton } from './buttons'
 import Checkbox from './checkbox'
-import TextInput from './textInput'
-import { useDispatch, useSelector } from 'react-redux'
-import { startEditing, endEditing } from '../app/editing'
-import type { RootState } from '../app/store'
-import { useState } from 'react'
-
+import TextInputForm from './textInputForm'
 
 interface Item {
     id: string,
@@ -117,7 +113,7 @@ export default function SingleTodo({todo}: Todo) {
                     onClick={checkboxAction}
                 />
                 <div onDoubleClick={() => setEditing(true)}>
-                    <TextInput
+                    <TextInputForm
                         text={todo.text}
                         id={todo.id}
                         checked={todo.completed}
@@ -143,6 +139,7 @@ const ListItem = styled.li`
     list-style-type: none;
     border: 1px solid ${props => props.theme.borderBackground};
     border-radius: 10px;
+    background: "#414141";
     
     &:last-child {
         margin-bottom: 0;

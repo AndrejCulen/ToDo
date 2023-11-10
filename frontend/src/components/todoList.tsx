@@ -1,10 +1,5 @@
 import styled from 'styled-components'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { deleteTask, completeTask } from '../api'
-import { DeleteButton } from './buttons'
-import TextInput from './textInput'
 import Counter from './counter'
-import Checkbox from './checkbox'
 import SingleTodo from './singleTodo'
 
 interface Item {
@@ -20,7 +15,6 @@ interface List {
 }
 
 export default function TodoList({list}: List) {
-    console.log(list)
     return (
         <ListSection>
             <StyledList>
@@ -47,9 +41,13 @@ const ListSection = styled.section`
 `
 const StyledList = styled.ul`
     box-sizing: border-box;
-    background: #e6e6e6;
+    background: ${props => props.theme.lightBackground ? props.theme.lightBackground : props.theme.borderBackground};
     max-width: 400px;
     width: 100%;
     padding: 24px;
     border-radius: 10px;
+
+    @media (max-width: 400px) {
+        padding: 12px;
+      }
 `
