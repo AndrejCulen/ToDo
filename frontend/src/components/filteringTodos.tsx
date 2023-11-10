@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { filterData, removeData } from '../app/reducer'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../app/store'
+import { activeTabAll, activeTabDone, activeTabUndone } from '../app/activeTab'
+import { filterData, removeData } from '../app/selectedData'
 import styled from 'styled-components'
 import { PrimaryButton } from './buttons'
 
@@ -16,24 +18,22 @@ export default function FilteringTodos({data}: any) {
 
     const dispatch = useDispatch()
 
-    const [activeTab, setActiveTab] = useState<string>('all')
+    const { activeTab } = useSelector((state: RootState) => state.activeTab)
 
-    function showAllTasks(id: string) {
-        setActiveTab(id)
-        dispatch(
-          removeData()
-        )
+    function showAllTasks() {
+        dispatch(activeTabAll())
+        dispatch(removeData())
       }
       
-      function showCompletedTasks(id: string) {
-        setActiveTab(id)
+      function showCompletedTasks() {
+        dispatch(activeTabDone())
         dispatch(
           filterData([...data.filter((task: Item) => task.completed)])
         )
       }
   
-      function showIncompletedTasks(id: string) {
-        setActiveTab(id)
+      function showIncompletedTasks() {
+        dispatch(activeTabUndone())
         dispatch(
           filterData([...data.filter((task: Item) => !task.completed)])
         )
@@ -45,19 +45,19 @@ export default function FilteringTodos({data}: any) {
                 text="Všechny"
                 id="all"
                 active={activeTab}
-                onClick={() => showAllTasks('all')}
+                onClick={() => showAllTasks()}
             />
             <PrimaryButton
                 text="Nesplněné"
                 id="undone"
                 active={activeTab}
-                onClick={() => showIncompletedTasks('undone')}
+                onClick={() => showIncompletedTasks()}
             />
             <PrimaryButton
                 text="Splněné"
                 id="done"
                 active={activeTab}
-                onClick={() => showCompletedTasks('done')}
+                onClick={() => showCompletedTasks()}
             />
         </StyledFilters>
     )

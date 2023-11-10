@@ -1,10 +1,12 @@
 
 import { configureStore } from '@reduxjs/toolkit'
-import selectedData from './reducer'
+import selectedData from './selectedData'
+import activeTab from './activeTab'
 
 const store = configureStore({
   reducer: {
-    selectedData
+    selectedData,
+    activeTab
   }
 })
 

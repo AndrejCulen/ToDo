@@ -1,5 +1,9 @@
 import styled from 'styled-components'
+import { useDispatch, useSelector } from 'react-redux'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import type { RootState } from '../app/store'
+import { activeTabAll } from '../app/activeTab'
+import { removeData } from '../app/selectedData'
 import { deleteTask, completeTask } from '../api'
 import { FooterButton } from './buttons'
 
@@ -18,6 +22,10 @@ interface List {
 export default function Footer({list}: List) {
     
     const queryClient = useQueryClient()
+
+    const dispatch = useDispatch()
+
+    const { activeTab }  = useSelector((state: RootState) => state.activeTab)
 
     const deleteMutation = useMutation({
         mutationFn: deleteTask,
@@ -61,6 +69,10 @@ export default function Footer({list}: List) {
     })
 
     function setAllDone() {
+        if (activeTab !== 'all') {
+            dispatch(activeTabAll())
+            dispatch(removeData())
+        }
         const undone = list.filter(task => !task.completed)
         undone.map(task => {
           completeMutation.mutate(task.id)
@@ -68,6 +80,10 @@ export default function Footer({list}: List) {
       }
 
     function deleteAllCompleted() {
+        if (activeTab !== 'all') {
+            dispatch(activeTabAll())
+            dispatch(removeData())
+        }
         const itemsToDelete = list.filter(item => item.completed)
         itemsToDelete.map(item => {
             deleteMutation.mutate(item.id)

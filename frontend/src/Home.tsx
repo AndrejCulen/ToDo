@@ -35,7 +35,7 @@ export default function Home() {
               />
           </ListSection>
         }
-        {!isLoading && <Footer list={selectedData?.selectedData || data} />}
+        {!isLoading && <Footer list={data} />}
         </StyledSection>
       </Main>
     )

@@ -3,26 +3,23 @@
     {
       "id": "V1StGXR8_Z5jdHi6B-myT",
       "text": "Udělat API",
-      "completed": false,
-      "createdDate": 1501594393387
+      "completed": true,
+      "createdDate": 1501594393387,
+      "completedDate": 1699621682798
     },
     {
       "id": "ADSFaEKG_Z2IISFNse-mMM",
       "text": "Dokončit dokumentaci",
-      "completed": false,
-      "createdDate": 1501594393387
+      "completed": true,
+      "createdDate": 1501594393387,
+      "completedDate": 1699621682797
     },
     {
       "id": "VasFEeR8_ZHHEbKL6B-OIu",
       "text": "Vytvořit prezantacisf",
-      "completed": false,
-      "createdDate": 1501594393387
-    },
-    {
-      "id": "VgSF8zPsis5_iCBm_1205",
-      "text": "novejxxdwfs",
-      "completed": false,
-      "createdDate": 1699613942974
+      "completed": true,
+      "createdDate": 1501594393387,
+      "completedDate": 1699621682797
     }
   ]
 }
